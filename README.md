@@ -25,11 +25,12 @@ Author: Qijie Zhao. Date: 19/01/2019
 ## Introduction
 ### Motivation:
 <div align=center><img src="imgs/motivation.png" width="500" hegiht="313" align=center />
-
 Beyond scale variation, **appearance-complexity variation** should be considered too for the object detection task, due to that the object instances with similar size can be quite different.
 
 <div align=center><img src="imgs/acv.png" width="350" hegiht="313" align=center />
+
 To solve this, we extend multi-scale detection fashions with a new dimension: **multi-level**. Deeper level learns features for objects with more appearance-complexity variation(e.g., pedestrian), while shallower level learns features for more simplistic objects(e.g., traffic light).
+
 1, We propose **Multi Level FPN**:
 
 <div align=center><img src="imgs/mlfpn.png" width="350" hegiht="313" align=center />
@@ -37,11 +38,11 @@ To solve this, we extend multi-scale detection fashions with a new dimension: **
 2, Based on MLFPN, we propose a single-shot object detector: **M2Det**, which represents the **M**ulti-Level **M**ulti-Scale **Det**ector.
 
 <div align=center><img src="imgs/m2det.png" width="450" hegiht="313" align=center />
-
-
 ----
-<div align=left>
+
+
 ### Methodology:
+
 
 ##### a. Construct the base feature:
 
@@ -49,14 +50,17 @@ We use the output of FFMv1(Feature Fusion Module v1) to construct the base featu
 
 <div align=center><img src="imgs/ffmv1.png" width="250" hegiht="163" align=center />
 <div align=left>
+
 ##### b. The Multi-level Multi-scale feature:
 Given the base feature, we start to form the M2F. For each TUM(Thinned U-shaped Module), we use a leach layer(actually, it's a 1x1 conv layer to extract a thinner feature from the base feature, it's in the FFMv2) to get the feature from base feature, and concat it with the output of the last TUM as the input of TUM. At last, aggregate the pyramidal features from all levels with similar scales.
 
 <div align=center><img src="imgs/ffmv2.png" width="250" hegiht="163" align=center />
 <div align=center><img src="imgs/tums.png" width="450" hegiht="163" align=center />
 <div align=left>
+
 ##### c. Scale-wise Feature Aggregation Module:
 We get the multi-level multi-scale feature, and try to re-allocate a weight for them to force the feature focusing more on the most useful channels/levels. Depending on the compress ratios, we use a SE attention module for each scale feature to learn attention along channel dimension.
+
 
 <div align=center><img src="imgs/sfam.png" width="450" hegiht="163" align=center />
 -------------
@@ -71,15 +75,4 @@ We get the multi-level multi-scale feature, and try to re-allocate a weight for 
 
 
 ## To be added
-=======
-# M2Det
-M2Det: A Single-Shot **M**ulti-Scale **M**ulti-Level Network for Object **Det**ection, accepted by AAAI'19.
 
-##### Update on 13 Nov: The [paper](https://qijiezhao.github.io/imgs/m2det.pdf) is released.
-![image](imgs/cmp.png)
-![image](imgs/rank.png)
-
-Code will be available soon.
--------
-Another state-of-the-art method: [CFENet](https://github.com/qijiezhao/CFENet)
->>>>>>> 471d6184d8bd91a2884d9d74aa75ece528e20026
