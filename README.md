@@ -1,5 +1,5 @@
 # M2Det
-Codebase for AAAI2019 "M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network" [[Paper link]]("https://qijiezhao.github.io/imgs/m2det.pdf")
+Codebase for AAAI2019 "M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network" [[Paper link]](https://qijiezhao.github.io/imgs/m2det.pdf)
 
 Author: Qijie Zhao. Date: 19/01/2019
 
