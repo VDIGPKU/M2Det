@@ -41,7 +41,7 @@ To solve this, we extend multi-scale detection fashions with a new dimension: **
 
 <div align=center><img src="imgs/m2det.png" width="450" hegiht="313" align=center />
 ----
-
+<div align=left>
 
 ### Methodology:
 
@@ -66,7 +66,8 @@ We get the multi-level multi-scale feature, and try to re-allocate a weight for 
 
 <div align=center><img src="imgs/sfam.png" width="450" hegiht="163" align=center />
 -------------
-
+<div align=left>
+  
 ## Scheduel
 
 <ul>
