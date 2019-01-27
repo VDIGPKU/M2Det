@@ -25,7 +25,9 @@ Author: Qijie Zhao. Date: 19/01/2019
 ## Introduction
 ### Motivation:
 <div align=center><img src="imgs/motivation.png" width="500" hegiht="313" align=center />
+  
 Beyond scale variation, **appearance-complexity variation** should be considered too for the object detection task, due to that the object instances with similar size can be quite different.
+
 
 <div align=center><img src="imgs/acv.png" width="350" hegiht="313" align=center />
 
