@@ -40,7 +40,9 @@ To solve this, we extend multi-scale detection fashions with a new dimension: **
 2, Based on MLFPN, we propose a single-shot object detector: **M2Det**, which represents the **M**ulti-Level **M**ulti-Scale **Det**ector.
 
 <div align=center><img src="imgs/vis/m2det.png" width="450" hegiht="313" align=center />
-----------------
+
+
+
 
 <div align=left>
 
@@ -66,7 +68,7 @@ We get the multi-level multi-scale feature, and try to re-allocate a weight for 
 
 
 <div align=center><img src="imgs/vis/sfam.png" width="450" hegiht="163" align=center />
--------------
+
 <div align=left>
 
 ## Scheduel
