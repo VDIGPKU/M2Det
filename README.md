@@ -17,7 +17,6 @@ Author: Qijie Zhao. Date: 19/01/2019
 
 * [Training](#Training)
 
-* [Multi-scale Evaluation](#Multi-scale Evaluation)
 
   
 
