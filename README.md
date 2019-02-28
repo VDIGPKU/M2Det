@@ -107,9 +107,9 @@ sh make.sh
 
 First, download the pretrained [m2det512_vgg.pth](https://pan.baidu.com/s/1LDkpsQfpaGq_LECQItxRFQ) file. Then, move the file to weights/.
 
-
+```Shell
   python demo.py -c=configs/m2det512_vgg.py -m=weights/m2det512_vgg.pth --show
-
+```
 You can see the image with drawed boxes as:
 
 
@@ -120,9 +120,9 @@ You can see the image with drawed boxes as:
 ## Evaluation
 
 1, **We provide evaluation script for M2Det:**
-
+```Shell
   python test.py -c=configs/m2det512_vgg.py -m=weights/m2det512_vgg.pth
-
+```
 Then, the evaluated result is shown as:
 
 <div align=center><img src="imgs/vis/eval_result.png" width="450" hegiht="163" align=center />
@@ -132,17 +132,17 @@ Then, the evaluated result is shown as:
  Even higher than our paper's original result! :)
 
 **2, You can run the test set with M2Det and submit to get a score:**
-
+```Shell
   python test.py -c=configs/m2det512_vgg.py -m=weights/m2det512_vgg.pth --test
-
+```
 and submit the result file to [CODALAB webpage](https://competitions.codalab.org/competitions/5181#participate).
 
 ## Training
 
 As simple as [demo](#Demo) and [evaluation](#Evaluation), Just use the train script:
-
+```Shell
   CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py -c=configs/m2det512_vgg.py --ngpu 4 -t True
-
+```
 All training configs and model configs are written well in configs/*.py.
 
 ## Multi-scale Evaluation
@@ -163,8 +163,8 @@ Please cite the following paper if you feel BSN useful to your research
                Tao Sheng and
                Yongtao Wang and
                Ying Chen and
-         Ling Cai and
-         Haibing Lin},
+               Ling Cai and
+               Haibing Lin},
   title     = {M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network},
   booktitle   = {The Thirty-Third AAAI Conference on Artificial Intelligence,AAAI},
   year      = {2019},
