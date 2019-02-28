@@ -156,7 +156,7 @@ To be added.
 
 ### Citation:
 
-Please cite the following paper if you feel BSN useful to your research
+Please cite the following paper if you feel M2Det useful to your research
 
 ```
 @inproceedings{M2Det2019aaai,
