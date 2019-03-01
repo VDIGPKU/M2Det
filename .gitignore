@@ -1,0 +1,31 @@
+# General
+.DS_Store
+*.swap
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# PyCharm
+.idea
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
