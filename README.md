@@ -106,7 +106,7 @@ sh make.sh
 
 **We provide a M2Det512_vgg pretrained model for demonstration(visualization):**
 
-First, download the pretrained m2det512_vgg.pth([baidu cloud](https://pan.baidu.com/s/1LDkpsQfpaGq_LECQItxRFQ),[google drive](https://drive.google.com/file/d/1NM1UDdZnwHwiNDxhcP-nndaWj24m-90L/view?usp=sharing) file. Then, move the file to weights/.
+First, download the pretrained m2det512_vgg.pth([baidu cloud](https://pan.baidu.com/s/1LDkpsQfpaGq_LECQItxRFQ),[google drive](https://drive.google.com/file/d/1NM1UDdZnwHwiNDxhcP-nndaWj24m-90L/view?usp=sharing)) file. Then, move the file to weights/.
 
 ```Shell
   python demo.py -c=configs/m2det512_vgg.py -m=weights/m2det512_vgg.pth --show
