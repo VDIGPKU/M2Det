@@ -163,6 +163,7 @@ Please cite the following paper if you feel M2Det useful to your research
   author    = {Qijie Zhao and
                Tao Sheng and
                Yongtao Wang and
+               Zhi Tang and
                Ying Chen and
                Ling Cai and
                Haibing Lin},
