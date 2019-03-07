@@ -150,7 +150,7 @@ All training configs and model configs are written well in configs/*.py.
 To be added.
 
 ## Pre-trained Files
-To be added.
+Now, we only provide m2det512_vgg.pth([baidu cloud](https://pan.baidu.com/s/1LDkpsQfpaGq_LECQItxRFQ),[google drive](https://drive.google.com/file/d/1NM1UDdZnwHwiNDxhcP-nndaWj24m-90L/view?usp=sharing)) due to we have other tasks recently, we decide to release other models in the future.
 
 ## Others
 
