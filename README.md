@@ -118,6 +118,11 @@ You can see the image with drawed boxes as:
 
 <div align=left>
 
+You can also run real-time demo using your webcam by specifying the camera's device ID with option `--cam`.
+```Shell
+  python demo.py -c=configs/m2det512_vgg.py -m=weights/m2det512_vgg.pth --show --cam=0
+```
+
 ## Evaluation
 
 1, **We provide evaluation script for M2Det:**
