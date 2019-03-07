@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+import time
 from torch.multiprocessing import Pool
 from utils.nms_wrapper import nms
 from utils.timer import Timer
@@ -16,6 +17,7 @@ parser = argparse.ArgumentParser(description='M2Det Testing')
 parser.add_argument('-c', '--config', default='configs/m2det320_vgg.py', type=str)
 parser.add_argument('-f', '--directory', default='imgs/', help='the path to demo images')
 parser.add_argument('-m', '--trained_model', default=None, type=str, help='Trained state_dict file path to open')
+parser.add_argument('--cam', default=-1, type=int, help='camera device id')
 parser.add_argument('--show', action='store_true', help='Whether to display the images')
 args = parser.parse_args()
 
@@ -57,7 +59,7 @@ colors = [_to_color(x, base) for x in range(cfg.model.m2det_config.num_classes)]
 cats = [_.strip().split(',')[-1] for _ in open('data/coco_labels.txt','r').readlines()]
 labels = tuple(['__background__'] + cats)
 
-def draw_detection(im, bboxes, scores, cls_inds, thr=0.2):
+def draw_detection(im, bboxes, scores, cls_inds, fps, thr=0.2):
     imgcv = np.copy(im)
     h, w, _ = imgcv.shape
     for i, box in enumerate(bboxes):
@@ -72,15 +74,33 @@ def draw_detection(im, bboxes, scores, cls_inds, thr=0.2):
         mess = '%s: %.3f' % (labels[cls_indx], scores[i])
         cv2.putText(imgcv, mess, (box[0], box[1] - 7),
                     0, 1e-3 * h, colors[cls_indx], thick // 3)
+        if fps >= 0:
+            cv2.putText(imgcv, '%.2f' % fps + ' fps', (w - 160, h - 15), 0, 2e-3 * h, (255, 255, 255), thick // 2)
 
     return imgcv
 
 im_path = args.directory
+cam = args.cam
+if cam >= 0:
+    capture = cv2.VideoCapture(cam)
 im_fnames = sorted((fname for fname in os.listdir(im_path) if os.path.splitext(fname)[-1] == '.jpg'))
 im_fnames = (os.path.join(im_path, fname) for fname in im_fnames)
-for i, fname in enumerate(im_fnames):
-    if 'm2det' in fname: continue # ignore the detected images
-    image = cv2.imread(fname, cv2.IMREAD_COLOR)
+im_iter = iter(im_fnames)
+while True:
+    if cam < 0:
+        try:
+            fname = next(im_iter)
+        except StopIteration:
+            break
+        if 'm2det' in fname: continue # ignore the detected images
+        image = cv2.imread(fname, cv2.IMREAD_COLOR)
+    else:
+        ret, image = capture.read()
+        if not ret:
+            cv2.destroyAllWindows()
+            capture.release()
+            break
+    loop_start = time.time()
     w,h = image.shape[1],image.shape[0]
     img = _preprocess(image).unsqueeze(0)
     if cfg.test_cfg.cuda:
@@ -104,13 +124,15 @@ for i, fname in enumerate(im_fnames):
         c_dets = c_dets[keep, :]
         allboxes.extend([_.tolist()+[j] for _ in c_dets])
 
+    loop_time = time.time() - loop_start
     allboxes = np.array(allboxes)
     boxes = allboxes[:,:4]
     scores = allboxes[:,4]
     cls_inds = allboxes[:,5]
     print('\n'.join(['pos:{}, ids:{}, score:{:.3f}'.format('(%.1f,%.1f,%.1f,%.1f)' % (o[0],o[1],o[2],o[3]) \
             ,labels[int(oo)],ooo) for o,oo,ooo in zip(boxes,cls_inds,scores)]))
-    im2show = draw_detection(image, boxes, scores, cls_inds)
+    fps = 1.0 / float(loop_time) if cam >= 0 else -1
+    im2show = draw_detection(image, boxes, scores, cls_inds, fps)
     # print bbox_pred.shape, iou_pred.shape, prob_pred.shape
 
     if im2show.shape[0] > 1100:
@@ -118,5 +140,12 @@ for i, fname in enumerate(im_fnames):
                              (int(1000. * float(im2show.shape[1]) / im2show.shape[0]), 1000))
     if args.show:
         cv2.imshow('test', im2show)
-        cv2.waitKey(5000)
-    cv2.imwrite('{}_m2det.jpg'.format(fname.split('.')[0]), im2show)
+        if cam < 0:
+            cv2.waitKey(5000)
+        else:
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                cv2.destroyAllWindows()
+                capture.release()
+                break
+    if cam < 0:
+        cv2.imwrite('{}_m2det.jpg'.format(fname.split('.')[0]), im2show)
