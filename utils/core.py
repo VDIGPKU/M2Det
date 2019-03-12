@@ -69,6 +69,7 @@ def set_criterion(cfg):
                         encode_target = cfg.loss.encode_target)
 
 def adjust_learning_rate(optimizer, gamma, epoch, step_index, iteration, epoch_size, cfg):
+    global lr
     if epoch <= 5:
         lr = cfg.train_cfg.end_lr + (cfg.train_cfg.lr[0]-cfg.train_cfg.end_lr)\
          * iteration / (epoch_size * cfg.train_cfg.warmup)
