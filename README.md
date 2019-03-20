@@ -24,22 +24,25 @@ Author: Qijie Zhao. Date: 19/01/2019
 ## Introduction
 ### Motivation:
 <div align=center><img src="imgs/vis/motivation.png" width="500" hegiht="313" align=center />
-
+<div align=left>
+  
 Beyond scale variation, **appearance-complexity variation** should be considered too for the object detection task, due to that the object instances with similar size can be quite different.
 
 
 <div align=center><img src="imgs/vis/acv.png" width="350" hegiht="313" align=center />
-
+<div align=left>
+  
 To solve this, we extend multi-scale detection fashions with a new dimension: **multi-level**. Deeper level learns features for objects with more appearance-complexity variation(e.g., pedestrian), while shallower level learns features for more simplistic objects(e.g., traffic light).
 
 1, We propose **Multi Level FPN**:
 
 <div align=center><img src="imgs/vis/mlfpn.png" width="350" hegiht="313" align=center />
-
+<div align=left>
+  
 2, Based on MLFPN, we propose a single-shot object detector: **M2Det**, which represents the **M**ulti-Level **M**ulti-Scale **Det**ector.
 
 <div align=center><img src="imgs/vis/m2det.png" width="450" hegiht="313" align=center />
-
+<div align=left>
 
 
 
