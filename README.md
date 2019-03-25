@@ -126,7 +126,7 @@ You can also run real-time demo using your webcam by specifying the camera's dev
   python demo.py -c=configs/m2det512_vgg.py -m=weights/m2det512_vgg.pth --show --cam=0
 ```
 
-Thanks for the demonstration sharing of m2det: [entry1](https://www.youtube.com/watch?v=VF8JuQwKQmU), [entry2](https://www.youtube.com/watch?v=1hugYRnLTHM), [entry3](https://www.youtube.com/watch?v=sYkqcTImK9w).
+Thanks for the volunteer demonstration of m2det: [entry1](https://www.youtube.com/watch?v=VF8JuQwKQmU), [entry2](https://www.youtube.com/watch?v=1hugYRnLTHM), [entry3](https://www.youtube.com/watch?v=sYkqcTImK9w).
 ## Evaluation
 
 1, **We provide evaluation script for M2Det:**
