@@ -89,8 +89,8 @@ We get the multi-level multi-scale feature, and try to re-allocate a weight for 
 - Install deeplearning framework, i.e., pytorch, torchvision and other libs.
 
 ```Shell
-conda install pytorch torchvision -c pytorch
-pip install opencv-python,tqdm
+conda install pytorch==0.4.1 torchvision -c pytorch
+pip install opencv-python tqdm
 ```
 - Clone this repository.
 ```Shell
