@@ -102,7 +102,7 @@ git clone https://github.com/qijiezhao/M2Det.git
 sh make.sh
 ```
 
-- Prepare dataset (e.g., VOC, COCO), refer to [sss.pytorch](https://github.com/amdegroot/ssd.pytorch) for detailed instructions.
+- Prepare dataset (e.g., VOC, COCO), refer to [ssd.pytorch](https://github.com/amdegroot/ssd.pytorch) for detailed instructions.
 
 
 ## Demo
