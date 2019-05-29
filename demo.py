@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser(description='M2Det Testing')
 parser.add_argument('-c', '--config', default='configs/m2det320_vgg.py', type=str)
 parser.add_argument('-f', '--directory', default='imgs/', help='the path to demo images')
 parser.add_argument('-m', '--trained_model', default=None, type=str, help='Trained state_dict file path to open')
+parser.add_argument('--video', default=False, type=bool, help='videofile mode')
 parser.add_argument('--cam', default=-1, type=int, help='camera device id')
 parser.add_argument('--show', action='store_true', help='Whether to display the images')
 args = parser.parse_args()
@@ -81,13 +82,22 @@ def draw_detection(im, bboxes, scores, cls_inds, fps, thr=0.2):
 
 im_path = args.directory
 cam = args.cam
+video = args.video
 if cam >= 0:
     capture = cv2.VideoCapture(cam)
+if video:
+    while True:
+        video_path = input('Please enter video path: ')
+        capture = cv2.VideoCapture(video_path)
+        if capture.isOpened():
+            break
+        else:
+            print('No file!')
 im_fnames = sorted((fname for fname in os.listdir(im_path) if os.path.splitext(fname)[-1] == '.jpg'))
 im_fnames = (os.path.join(im_path, fname) for fname in im_fnames)
 im_iter = iter(im_fnames)
 while True:
-    if cam < 0:
+    if cam < 0 and not video:
         try:
             fname = next(im_iter)
         except StopIteration:
@@ -140,12 +150,12 @@ while True:
                              (int(1000. * float(im2show.shape[1]) / im2show.shape[0]), 1000))
     if args.show:
         cv2.imshow('test', im2show)
-        if cam < 0:
+        if cam < 0 and not video:
             cv2.waitKey(5000)
         else:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 cv2.destroyAllWindows()
                 capture.release()
                 break
-    if cam < 0:
+    if cam < 0 and not video:
         cv2.imwrite('{}_m2det.jpg'.format(fname.split('.')[0]), im2show)
