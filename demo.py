@@ -93,6 +93,10 @@ if video:
             break
         else:
             print('No file!')
+if cam >= 0 or video:
+    video_name = os.path.splitext(video_path)
+    fourcc = cv2.VideoWriter_fourcc('m','p','4','v')
+    out_video = cv2.VideoWriter(video_name[0] + '_m2det.mp4', fourcc, capture.get(cv2.CAP_PROP_FPS), (int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)), int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))))
 im_fnames = sorted((fname for fname in os.listdir(im_path) if os.path.splitext(fname)[-1] == '.jpg'))
 im_fnames = (os.path.join(im_path, fname) for fname in im_fnames)
 im_iter = iter(im_fnames)
@@ -155,7 +159,10 @@ while True:
         else:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 cv2.destroyAllWindows()
+                out_video.release()
                 capture.release()
                 break
     if cam < 0 and not video:
         cv2.imwrite('{}_m2det.jpg'.format(fname.split('.')[0]), im2show)
+    else:
+        out_video.write(im2show)
