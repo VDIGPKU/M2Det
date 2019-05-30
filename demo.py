@@ -146,7 +146,7 @@ while True:
     cls_inds = allboxes[:,5]
     print('\n'.join(['pos:{}, ids:{}, score:{:.3f}'.format('(%.1f,%.1f,%.1f,%.1f)' % (o[0],o[1],o[2],o[3]) \
             ,labels[int(oo)],ooo) for o,oo,ooo in zip(boxes,cls_inds,scores)]))
-    fps = 1.0 / float(loop_time) if cam >= 0 else -1
+    fps = 1.0 / float(loop_time) if cam >= 0 or video else -1
     im2show = draw_detection(image, boxes, scores, cls_inds, fps)
     # print bbox_pred.shape, iou_pred.shape, prob_pred.shape
 
