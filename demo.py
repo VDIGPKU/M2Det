@@ -85,6 +85,7 @@ cam = args.cam
 video = args.video
 if cam >= 0:
     capture = cv2.VideoCapture(cam)
+    video_path = './cam'
 if video:
     while True:
         video_path = input('Please enter video path: ')
