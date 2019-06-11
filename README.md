@@ -7,7 +7,7 @@ Author: Qijie Zhao. Date: 19/01/2019
 
 * [Introduction](#Introduction)
 
-* [Scheduel](#Scheduel)
+* [Schedule](#Schedule)
 
 * [Data Preparation and Installation](#Preparation)
 
@@ -73,7 +73,7 @@ We get the multi-level multi-scale feature, and try to re-allocate a weight for 
 
 <div align=left>
 
-## Scheduel
+## Schedule
 
 <ul>
 <li><input type="checkbox" disabled checked> 13 Nov, 2018 - Release the paper</li>
