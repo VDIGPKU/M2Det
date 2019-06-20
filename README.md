@@ -90,7 +90,7 @@ We get the multi-level multi-scale feature, and try to re-allocate a weight for 
 
 ```Shell
 conda install pytorch==0.4.1 torchvision -c pytorch
-pip install opencv-python tqdm
+pip install -r requirements.txt
 ```
 - Clone this repository.
 ```Shell
