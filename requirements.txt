@@ -3,3 +3,4 @@ tqdm
 addict
 matplotlib
 termcolor
+tensorflow
