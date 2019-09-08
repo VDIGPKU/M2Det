@@ -177,7 +177,7 @@ Please cite the following paper if you feel M2Det useful to your research
                Zhi Tang and
                Ying Chen and
                Ling Cai and
-               Haibing Lin},
+               Haibing Ling},
   title     = {M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network},
   booktitle   = {The Thirty-Third AAAI Conference on Artificial Intelligence,AAAI},
   year      = {2019},
