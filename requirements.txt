@@ -1,0 +1,6 @@
+opencv-python
+tqdm
+addict
+matplotlib
+termcolor
+tensorflow
