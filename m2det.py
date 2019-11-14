@@ -67,7 +67,7 @@ class M2Det(nn.Module):
             deep_in, deep_out = 1024,512
         elif 'res' in self.net_family: # Including ResNet series and ResNeXt series
             self.base = get_backbone(self.backbone)
-            shallow_in, shallow_out = 512,256
+            shallow_in, shallow_out = 1024,256
             deep_in, deep_out = 2048,512
         self.reduce= BasicConv(shallow_in, shallow_out, kernel_size=3, stride=1, padding=1)
         self.up_reduce= BasicConv(deep_in, deep_out, kernel_size=1, stride=1)

@@ -1,7 +1,10 @@
-import time,os
-import torch
+import os
 import shutil
+import time
 import argparse
+import numpy as np
+from termcolor import cprint
+import torch
 import torch.optim as optim
 import torch.nn.init as init
 import torch.utils.data as data
@@ -9,11 +12,9 @@ import torch.backends.cudnn as cudnn
 from layers.functions import PriorBox
 from layers.modules import MultiBoxLoss
 from data import mk_anchors
-from data import COCODetection, VOCDetection, detection_collate, preproc
+from data import COCODetection, VOCDetection, CustomDataset, detection_collate, preproc
 from configs.CC import Config
-from termcolor import cprint
 from utils.nms_wrapper import nms
-import numpy as np
 
 def set_logger(status):
     if status:
@@ -53,10 +54,15 @@ def init_net(net, cfg, resume_net):
         net.load_state_dict(new_state_dict,strict=False)
 
 def set_optimizer(net, cfg):
-    return optim.SGD(net.parameters(),
-                     lr = cfg.train_cfg.lr[0],
-                     momentum = cfg.optimizer.momentum,
-                     weight_decay = cfg.optimizer.weight_decay)
+    op_type = cfg.optimizer['type']
+    if op_type == 'SGD':
+        return optim.SGD(net.parameters(),
+                        lr = cfg.train_cfg.lr[0],
+                        momentum = cfg.optimizer.momentum,
+                        weight_decay = cfg.optimizer.weight_decay)
+    return optim.Adam(net.parameters(), 
+                    lr=cfg.train_cfg.lr[0], 
+                    weight_decay=cfg.optimizer.weight_decay)
 
 def set_criterion(cfg):
     return MultiBoxLoss(cfg.model.m2det_config.num_classes,
@@ -86,13 +92,19 @@ def adjust_learning_rate(optimizer, gamma, epoch, step_index, iteration, epoch_s
 
 def get_dataloader(cfg, dataset, setname='train_sets'):
     _preproc = preproc(cfg.model.input_size, cfg.model.rgb_means, cfg.model.p)
-    Dataloader_function = {'VOC': VOCDetection, 'COCO':COCODetection}
+    Dataloader_function = {'VOC': VOCDetection, 'COCO':COCODetection, 'CSV': CustomDataset}
     _Dataloader_function = Dataloader_function[dataset]
-    if setname == 'train_sets':
-        dataset = _Dataloader_function(cfg.COCOroot if dataset == 'COCO' else cfg.VOCroot,
-                                   getattr(cfg.dataset, dataset)[setname], _preproc)
+    if dataset == 'CSV':
+        if setname == 'train_sets':
+            dataset = _Dataloader_function(getattr(cfg.dataset, dataset)[setname], getattr(cfg.dataset, dataset)['classes'], cfg.CSVroot, _preproc)
+        else:
+            dataset = _Dataloader_function(getattr(cfg.dataset, dataset)[setname], getattr(cfg.dataset, dataset)['classes'], cfg.CSVroot)
     else:
-        dataset = _Dataloader_function(cfg.COCOroot if dataset == 'COCO' else cfg.VOCroot,
+        if setname == 'train_sets':
+            dataset = _Dataloader_function(cfg.COCOroot if dataset == 'COCO' else cfg.VOCroot,
+                                    getattr(cfg.dataset, dataset)[setname], _preproc)
+        else:
+            dataset = _Dataloader_function(cfg.COCOroot if dataset == 'COCO' else cfg.VOCroot,
                                    getattr(cfg.dataset, dataset)[setname], None)
     return dataset
     

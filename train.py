@@ -21,7 +21,7 @@ parser.add_argument('-d', '--dataset', default='COCO', help='VOC or COCO dataset
 parser.add_argument('--ngpu', default=1, type=int, help='gpus')
 parser.add_argument('--resume_net', default=None, help='resume net for retraining')
 parser.add_argument('--resume_epoch', default=0, type=int, help='resume iter for retraining')
-parser.add_argument('-t', '--tensorboard', type=bool, default=False, help='Use tensorborad to show the Loss Graph')
+parser.add_argument('-t', '--tensorboard', default=False, action='store_true', help='Use tensorborad to show the Loss Graph')
 args = parser.parse_args()
 
 print_info('----------------------------------------------------------------------\n'
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     print_info('===> Loading Dataset...',['yellow','bold'])
     dataset = get_dataloader(cfg, args.dataset, 'train_sets')
     epoch_size = len(dataset) // (cfg.train_cfg.per_batch_size * args.ngpu)
-    max_iter = getattr(cfg.train_cfg.step_lr,args.dataset)[-1] * epoch_size
+    max_iter = getattr(cfg.train_cfg.step_lr, args.dataset)[-1] * epoch_size
     stepvalues = [_*epoch_size for _ in getattr(cfg.train_cfg.step_lr, args.dataset)[:-1]]
     print_info('===> Training M2Det on ' + args.dataset, ['yellow','bold'])
     step_index = 0
